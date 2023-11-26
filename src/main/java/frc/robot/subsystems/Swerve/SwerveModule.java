@@ -88,7 +88,7 @@ public class SwerveModule extends SubsystemBase {
         this.m_steerMotor.getConfigurator().apply(feedbackConfigs);
         this.m_steerMotor.getConfigurator().apply(slot0SteerConfigs);
         
-        
+
         
     }
 
@@ -124,16 +124,17 @@ public class SwerveModule extends SubsystemBase {
 
     /**
      *
-     * @param speed The speed to set. Value should be between -1.0 and 1.0.
+     * @param speed The speed to set (Percentage). Value should be between -1.0 and 1.0.
      */
     public void setDriveMotor(int speed) {
+        
         this.m_driveMotor.set(speed);
     }
 
 
     /**
      *
-     * @param speed The speed to set. Value should be between -1.0 and 1.0.
+     * @param speed The speed to set (Percentage). Value should be between -1.0 and 1.0.
      */
     public void setSteerMotor(int speed) {
         this.m_steerMotor.set(speed);
