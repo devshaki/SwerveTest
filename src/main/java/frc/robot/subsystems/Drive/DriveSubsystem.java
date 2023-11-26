@@ -11,6 +11,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.Constants.Drive;
@@ -64,21 +65,27 @@ public class DriveSubsystem extends SubsystemBase {
 
     m_navX = new AHRS();
 
-    // TODO
     m_modulePositions = new SwerveModulePosition[]{
-      new SwerveModulePosition(0, m_frontLeftModule.getModuleState().angle), 
-      new SwerveModulePosition(0, m_frontRightModule.getModuleState().angle),
-      new SwerveModulePosition(0, m_backLeftModule.getModuleState().angle), 
-      new SwerveModulePosition(0, m_backRightModule.getModuleState().angle)
+      new SwerveModulePosition(m_frontLeftModule.getDriveMotor().getPosition().asSupplier().get(), m_frontLeftModule.getModuleState().angle), 
+      new SwerveModulePosition(m_frontRightModule.getDriveMotor().getPosition().asSupplier().get(), m_frontRightModule.getModuleState().angle),
+      new SwerveModulePosition(m_backLeftModule.getDriveMotor().getPosition().asSupplier().get(), m_backLeftModule.getModuleState().angle), 
+      new SwerveModulePosition(m_backRightModule.getDriveMotor().getPosition().asSupplier().get(), m_backRightModule.getModuleState().angle)
     };
 
-    m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(Double.valueOf(m_navX.getFusedHeading())), null);
+    m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(Double.valueOf(m_navX.getFusedHeading())), m_modulePositions);
   }
 
 
   @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
+  public void periodic()
+   {
+    m_odometry.update(Rotation2d.fromDegrees(Double.valueOf(m_navX.getFusedHeading())), new SwerveModulePosition[]{
+      new SwerveModulePosition(m_frontLeftModule.getDriveMotor().getPosition().asSupplier().get(), m_frontLeftModule.getModuleState().angle), 
+      new SwerveModulePosition(m_frontRightModule.getDriveMotor().getPosition().asSupplier().get(), m_frontRightModule.getModuleState().angle),
+      new SwerveModulePosition(m_backLeftModule.getDriveMotor().getPosition().asSupplier().get(), m_backLeftModule.getModuleState().angle), 
+      new SwerveModulePosition(m_backRightModule.getDriveMotor().getPosition().asSupplier().get(), m_backRightModule.getModuleState().angle)
+    }
+    );
   }
 
   @Override

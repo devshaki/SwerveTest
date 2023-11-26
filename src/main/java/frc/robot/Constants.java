@@ -20,7 +20,6 @@ public final class Constants {
   public static class Swerve {
 
     public static class PID {
-
       // ! --- DO NOT USE THESE PID k VARIABLES IN PRODUCTION! I DID NOT TEST THEM YET ------------------ 
       public static class Drive {
         /**
@@ -165,6 +164,12 @@ public final class Constants {
   
     public class OperatorConstants {
       public static final int kDriverControllerPort = 0;
+    }
+
+    public static class OI
+    {
+      public static final int kXboxControllerPort = 0;
+      public static final double kXboxcontrollerDrift = 0.1;
     }
   
 }
