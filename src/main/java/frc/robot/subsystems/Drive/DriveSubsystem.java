@@ -4,7 +4,15 @@
 
 package frc.robot.subsystems.Drive;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import frc.robot.Constants.Drive;
 import frc.robot.subsystems.Swerve.SwerveModule;
 
@@ -15,13 +23,56 @@ public class DriveSubsystem extends SubsystemBase {
   private final SwerveModule m_frontRightModule;
   private final SwerveModule m_backLeftModule;
   private final SwerveModule m_backRightModule;
+  private final SwerveDriveKinematics m_kinematics;
+  private final AHRS m_navX;
+  private final SwerveModulePosition[] m_modulePositions;
+  private final SwerveDriveOdometry m_odometry;
+
 
   public DriveSubsystem() {
-    this.m_frontLeftModule = new SwerveModule(Drive.Motors.kFrontLeftDriveFalconCANID, Drive.Motors.kFrontLeftSteerFalconCANID, Drive.Encoders.kFrontLeftSteerEncoderCANID);
-    this.m_frontRightModule = new SwerveModule(Drive.Motors.kFrontRightDriveFalconCANID, Drive.Motors.kFrontRightSteerFalconCANID, Drive.Encoders.kFrontRightSteerEncoderCANID);
-    this.m_backLeftModule = new SwerveModule(Drive.Motors.kBackLeftDriveFalconCANID, Drive.Motors.kBackLeftSteerFalconCANID, Drive.Encoders.kBackLeftSteerEncoderCANID);
-    this.m_backRightModule = new SwerveModule(Drive.Motors.kBackRightDriveFalconCANID, Drive.Motors.kBackRightSteerFalconCANID, Drive.Encoders.kBackRightSteerEncoderCANID);
+    this.m_frontLeftModule = new SwerveModule(
+      Drive.Motors.kFrontLeftDriveFalconCANID, 
+      Drive.Motors.kFrontLeftSteerFalconCANID, 
+      Drive.Encoders.kFrontLeftSteerEncoderCANID, 
+      Drive.Stats.kFrontLeftModuleOffsetInDegrees
+    );
+    this.m_frontRightModule = new SwerveModule(
+      Drive.Motors.kFrontRightDriveFalconCANID, 
+      Drive.Motors.kFrontRightSteerFalconCANID, 
+      Drive.Encoders.kFrontRightSteerEncoderCANID,
+      Drive.Stats.kFrontRightModuleOffsetInDegrees
+      );
+    this.m_backLeftModule = new SwerveModule(
+      Drive.Motors.kBackLeftDriveFalconCANID, 
+      Drive.Motors.kBackLeftSteerFalconCANID, 
+      Drive.Encoders.kBackLeftSteerEncoderCANID,
+      Drive.Stats.kBackLeftModuleOffsetInDegrees
+    );
+    this.m_backRightModule = new SwerveModule(
+      Drive.Motors.kBackRightDriveFalconCANID, 
+      Drive.Motors.kBackRightSteerFalconCANID, 
+      Drive.Encoders.kBackRightSteerEncoderCANID,
+      Drive.Stats.kBackRightModuleOffsetInDegrees
+    );
 
+    m_kinematics = new SwerveDriveKinematics(
+            new Translation2d(Drive.Stats.kTrackWidthMeters / 2.0, Drive.Stats.kWheelbaseMeters / 2.0),
+            new Translation2d(Drive.Stats.kTrackWidthMeters / 2.0, -Drive.Stats.kWheelbaseMeters / 2.0),
+            new Translation2d(-Drive.Stats.kTrackWidthMeters / 2.0, Drive.Stats.kWheelbaseMeters / 2.0),
+            new Translation2d(-Drive.Stats.kTrackWidthMeters / 2.0, -Drive.Stats.kWheelbaseMeters / 2.0)
+    );
+
+    m_navX = new AHRS();
+
+    // TODO
+    m_modulePositions = new SwerveModulePosition[]{
+      new SwerveModulePosition(0, m_frontLeftModule.getModuleState().angle), 
+      new SwerveModulePosition(0, m_frontRightModule.getModuleState().angle),
+      new SwerveModulePosition(0, m_backLeftModule.getModuleState().angle), 
+      new SwerveModulePosition(0, m_backRightModule.getModuleState().angle)
+    };
+
+    m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(Double.valueOf(m_navX.getFusedHeading())), null);
   }
 
 

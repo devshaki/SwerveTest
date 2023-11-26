@@ -4,6 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.units.Distance;
+import edu.wpi.first.units.Measure;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -86,16 +89,15 @@ public final class Constants {
        */
       public static final double kWheelbaseMeters = 0;
 
-      // TODO: find out wtf dis is
-      public static final double kFrontLeftModuleSteerOffset = Math.toRadians(34.5);
-      public static final double kFrontRightModuleSteerOffset = Math.toRadians(34.5);
-      public static final double kBackLeftModuleSteerOffset = Math.toRadians(34.5);
-      public static final double kBackRightModuleSteerOffset = Math.toRadians(34.5);
+
 
       /**
        * The ratio between the Motor and the center wheel of the Swerve module (which the CANcoder lies on)
        */
       public static final double kRotorToSensorRatio = 8.14;
+
+      public static final double kDriveWheelRadiusInches = 2;
+      
       
     }
   }
@@ -112,6 +114,24 @@ public final class Constants {
          * Distance between the center of the back wheels to the center of the front wheels (Meters)
          */
         public static final double kWheelbaseMeters = 0;
+      
+        // TODO: find out wtf dis is
+      /**
+       * The module offset in degrees
+       */
+      public static final double kFrontLeftModuleOffsetInDegrees = 34.5;
+      /**
+       * The module offset in degrees 
+       */
+      public static final double kFrontRightModuleOffsetInDegrees = 34.5;
+      /**
+       * The module offset in degrees 
+       */
+      public static final double kBackLeftModuleOffsetInDegrees = 34.5;
+      /**
+       * The module offset in degrees
+       */
+      public static final double kBackRightModuleOffsetInDegrees = 34.5;
 
 
 

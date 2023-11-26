@@ -4,10 +4,16 @@ import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.VoltageConfigs;
+import com.ctre.phoenix6.controls.MotionMagicDutyCycle;
+import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.FeedbackSensorSourceValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.Swerve;
 
@@ -17,6 +23,10 @@ public class SwerveModule extends SubsystemBase {
     private final TalonFX m_driveMotor;
     private final TalonFX m_steerMotor;
     private final CANcoder m_steerEncoder;
+    private final VelocityDutyCycle m_velocityDutyCycle;
+    private final MotionMagicDutyCycle m_motionMagicDutyCycle;
+
+    private SwerveModuleState m_moduleState;
     
 
 
@@ -27,11 +37,16 @@ public class SwerveModule extends SubsystemBase {
      * CANID of the Steer Motor (The Falcon motor that controls turning)
      * @param steerEncoderCANID
      * CANID of the Steer Encoder (on-axis)
+     * @param moduleOffsetInDegrees
+     * The Offset of the module (Relative to the robot)
      */
-    public SwerveModule(int driveMotorCANID, int steerMotorCANID, int steerEncoderCANID) {
+    public SwerveModule(int driveMotorCANID, int steerMotorCANID, int steerEncoderCANID, double moduleOffsetInDegrees) {
         this.m_driveMotor = new TalonFX(driveMotorCANID);
         this.m_steerMotor = new TalonFX(steerMotorCANID);
         this.m_steerEncoder = new CANcoder(steerEncoderCANID);
+        this.m_velocityDutyCycle = new VelocityDutyCycle(0);
+        this.m_motionMagicDutyCycle = new MotionMagicDutyCycle(0);
+        this.m_moduleState = new SwerveModuleState(0, Rotation2d.fromDegrees(moduleOffsetInDegrees));
         configMotors(steerEncoderCANID);
         setNeutralMode(NeutralModeValue.Brake);
 
@@ -94,6 +109,26 @@ public class SwerveModule extends SubsystemBase {
 
 
     /**
+     * @param state 
+     * The state of the Module (Affects both the Drive and Steer Motor)
+     */
+    public void setModuleState(SwerveModuleState state){
+        this.m_moduleState = SwerveModuleState.optimize(state, this.m_moduleState.angle);
+        this.m_driveMotor.setControl(this.m_velocityDutyCycle.withVelocity(mpsToRpm(state.speedMetersPerSecond)));
+        this.m_steerMotor.setControl(this.m_motionMagicDutyCycle.withPosition(state.angle.getDegrees()));
+    }
+
+    /**
+     * Convertion from Meters per second to Rounds per minute 
+     * @param value 
+     * Rounds per minute
+     */
+    public double mpsToRpm(double value) {
+        double wheelRadiusMeters = Units.inchesToMeters(Swerve.Stats.kDriveWheelRadiusInches);
+        return (60/(2*Math.PI*wheelRadiusMeters))*value;
+    }   
+
+    /**
      * @param neutralMode
      * Set's the NeutralMode of both motors of the module to CTRE'S NeutralMode
      * 
@@ -111,6 +146,10 @@ public class SwerveModule extends SubsystemBase {
 
     public CANcoder getSteerEncoder() {
         return this.m_steerEncoder;
+    }
+
+    public SwerveModuleState getModuleState() {
+        return this.m_moduleState;
     }
 
     /**
