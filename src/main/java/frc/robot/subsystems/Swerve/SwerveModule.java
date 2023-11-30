@@ -92,13 +92,14 @@ public class SwerveModule extends SubsystemBase {
             .withKP(Swerve.PID.Steer.kP)  // Proportional tuning - error
             .withKI(Swerve.PID.Steer.kI) // Integral tuning - learning
             .withKD(Swerve.PID.Steer.kD); // Derivative tuning - overshoot
+        
 
 
         this.m_driveMotor.getConfigurator().apply(voltageConfigs);
         this.m_driveMotor.getConfigurator().apply(statorConfigs);
         this.m_driveMotor.getConfigurator().apply(slot0DriveConfigs);
+        
         this.m_steerMotor.getConfigurator().apply(voltageConfigs);
-
         this.m_steerMotor.getConfigurator().apply(statorConfigs);
         this.m_steerMotor.getConfigurator().apply(feedbackConfigs);
         this.m_steerMotor.getConfigurator().apply(slot0SteerConfigs);

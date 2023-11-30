@@ -81,12 +81,12 @@ public final class Constants {
       /**
        * Distance between the center of the right wheels to the center of the left wheels (Meters)
        */
-      public static final double kTrackWidthMeters = 0;
+      public static final double kTrackWidthMeters = 85.5;
 
       /**
        * Distance between the center of the back wheels to the center of the front wheels (Meters)
        */
-      public static final double kWheelbaseMeters = 0;
+      public static final double kWheelbaseMeters = 85.5;
 
 
 
@@ -107,14 +107,14 @@ public final class Constants {
         /**
          * Distance between the center of the right wheels to the center of the left wheels (Meters)
          */
-        public static final double kTrackWidthMeters = 0;
+        public static final double kTrackWidthMeters = 85.5;
 
         /**
          * Distance between the center of the back wheels to the center of the front wheels (Meters)
          */
-        public static final double kWheelbaseMeters = 0;
+        public static final double kWheelbaseMeters = 85.5;
       
-        // TODO: find out wtf dis is
+        // TODO: find out wtf dis is - solved?
       /**
        * The module offset in degrees
        */
@@ -133,7 +133,10 @@ public final class Constants {
       public static final double kBackRightModuleOffsetInDegrees = 34.5;
 
 
-
+      /**
+       * Max velocity - Meters Per Second
+       */
+      public static final double kMaxVelocityMPS = 1.14528;
     }
 
     public static class Motors {

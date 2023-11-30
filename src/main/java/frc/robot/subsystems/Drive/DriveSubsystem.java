@@ -6,8 +6,10 @@ package frc.robot.subsystems.Drive;
 
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -26,7 +28,10 @@ public class DriveSubsystem extends SubsystemBase {
   private final SwerveModule m_backRightModule;
   private final SwerveDriveKinematics m_kinematics;
   private final AHRS m_navX;
+  private final SwerveModuleState[] m_moduleStates;
+  private Pose2d m_currentPose;
   private final SwerveModulePosition[] m_modulePositions;
+  private ChassisSpeeds m_swerveSpeeds;
   private final SwerveDriveOdometry m_odometry;
 
 
@@ -72,7 +77,42 @@ public class DriveSubsystem extends SubsystemBase {
       new SwerveModulePosition(m_backRightModule.getDriveMotor().getPosition().asSupplier().get(), m_backRightModule.getModuleState().angle)
     };
 
+    m_moduleStates = new SwerveModuleState[]{
+      m_frontLeftModule.getModuleState(), m_frontRightModule.getModuleState(),
+      m_backLeftModule.getModuleState(), m_backRightModule.getModuleState()
+    };
+
     m_odometry = new SwerveDriveOdometry(m_kinematics, Rotation2d.fromDegrees(Double.valueOf(m_navX.getFusedHeading())), m_modulePositions);
+  
+    m_swerveSpeeds = new ChassisSpeeds(0, 0, 0);
+
+    m_currentPose = new Pose2d();
+  }
+/**
+ * sets the state of each of the four swerve modules in the drivetrain
+ */
+  public void setModulesStates(SwerveModuleState[] moduleState) {
+    m_frontLeftModule.setModuleState(moduleState[0]);
+    m_frontLeftModule.setModuleState(moduleState[1]);
+    m_frontLeftModule.setModuleState(moduleState[2]);
+    m_frontLeftModule.setModuleState(moduleState[3]);
+  }
+
+  /**
+   * @param x_velocityMps
+   * The X velocity (Meters Per Second)
+   * @param y_velocityMps
+   * @param rotation_velocity
+   */
+  public void setModules(double x_velocityMps, double y_velocityMps, double rotation_velocity) {
+      this.m_swerveSpeeds = new ChassisSpeeds(x_velocityMps, y_velocityMps, rotation_velocity);
+      SwerveModuleState[] target_states = this.m_kinematics.toSwerveModuleStates(this.m_swerveSpeeds);
+      setModulesStates(target_states);
+
+  }
+
+  public void resetOdometry() {
+      m_odometry.resetPosition(m_navX.getRotation2d(), m_modulePositions, m_currentPose);
   }
 
 
