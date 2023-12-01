@@ -4,13 +4,8 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 import frc.robot.commands.DriveCommand;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -21,16 +16,20 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+  // ? https://www.chiefdelphi.com/t/why-do-many-teams-put-a-m-in-front-of-many-variable-names/377126
+  // ? this is why i put m_(variable name)
   // The robot's subsystems and commands are defined here...
-  private final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
+  private final DriveSubsystem m_driveSubsystem;
+  private final OI oi;
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController m_driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+  // private final CommandXboxController m_driverController =
+  //     new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the trigger bindings
+    this.m_driveSubsystem = new DriveSubsystem();
+    this.oi = new OI();
     configureBindings();
   }
 
@@ -45,7 +44,7 @@ public class RobotContainer {
    */
   private void configureBindings() 
   {  
-      m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, OI.xboxController::getLeftX, OI.xboxController::getLeftY));
+      m_driveSubsystem.setDefaultCommand(new DriveCommand(m_driveSubsystem, oi.xboxController::getLeftX, oi.xboxController::getLeftY, oi.xboxController::getRightX));
   }
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

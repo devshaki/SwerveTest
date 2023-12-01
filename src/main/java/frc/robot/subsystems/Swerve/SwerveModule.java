@@ -19,6 +19,8 @@ import frc.robot.Constants.Swerve;
 
 
 public class SwerveModule extends SubsystemBase {
+    // TODO https://pro.docs.ctr-electronics.com/en/latest/docs/migration/migration-guide/closed-loop-guide.html
+    // TODO https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/trapezoidal-profiles.html
 
     private final TalonFX m_driveMotor;
     private final TalonFX m_steerMotor;

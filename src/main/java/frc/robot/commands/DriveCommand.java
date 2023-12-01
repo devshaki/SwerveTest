@@ -1,7 +1,6 @@
 package frc.robot.commands;
 
 import frc.robot.Constants;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Drive.DriveSubsystem;
 
 import java.util.function.DoubleSupplier;
@@ -12,21 +11,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class DriveCommand extends Command {
     @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
     private final DriveSubsystem m_driveSubsystem;
-    private final DoubleSupplier m_xValue;
-    private final DoubleSupplier m_yValue;
-    private final Double m_xVelocity;
-    private final Double m_yVelocity;
+    private final Double m_xVelocityMps;
+    private final Double m_yVelocityMps;
+    private final Double m_rotationVelocityRps;
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public DriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier xValue, DoubleSupplier yValue) {
+  public DriveCommand(DriveSubsystem driveSubsystem, DoubleSupplier xValue, DoubleSupplier yValue, DoubleSupplier rotationValue) {
     this.m_driveSubsystem = driveSubsystem;
-    this.m_xValue = xValue;
-    this.m_yValue = yValue;
-    this.m_xVelocity = this.m_xValue.getAsDouble();
-    this.m_yVelocity = this.m_yValue.getAsDouble();
+    this.m_xVelocityMps = xValue.getAsDouble();
+    this.m_yVelocityMps = yValue.getAsDouble();
+    this.m_rotationVelocityRps = rotationValue.getAsDouble();
 
     addRequirements(driveSubsystem);
   }
@@ -44,7 +41,7 @@ public class DriveCommand extends Command {
   @Override
   public void execute() 
   {
-      
+    m_driveSubsystem.setModules(correctJoystickDrift(m_xVelocityMps), correctJoystickDrift(m_yVelocityMps), correctJoystickDrift(m_rotationVelocityRps));
   }
 
   @Override

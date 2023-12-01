@@ -4,9 +4,6 @@
 
 package frc.robot;
 
-import edu.wpi.first.units.Distance;
-import edu.wpi.first.units.Measure;
-
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -72,8 +69,6 @@ public final class Constants {
     }
 
     public static class Stats {
-      // ! I DONT KNOW THE ACTUAL VOLTAGES AND STUFF, IM GUESSING BASED ON YOTAM'S FRC-2023-CODE ---------------------------------------
-
       public static final double kMaxVoltage = 12.0;
       public static final double kStatorCurrentLimit = 35.0;
       public static final double kSupplyCurrentLimit = 35.0;
@@ -88,6 +83,7 @@ public final class Constants {
        */
       public static final double kWheelbaseMeters = 85.5;
 
+      
 
 
       /**
@@ -113,30 +109,24 @@ public final class Constants {
          * Distance between the center of the back wheels to the center of the front wheels (Meters)
          */
         public static final double kWheelbaseMeters = 85.5;
-      
-        // TODO: find out wtf dis is - solved?
-      /**
-       * The module offset in degrees
-       */
-      public static final double kFrontLeftModuleOffsetInDegrees = 34.5;
-      /**
-       * The module offset in degrees 
-       */
-      public static final double kFrontRightModuleOffsetInDegrees = 34.5;
-      /**
-       * The module offset in degrees 
-       */
-      public static final double kBackLeftModuleOffsetInDegrees = 34.5;
-      /**
-       * The module offset in degrees
-       */
-      public static final double kBackRightModuleOffsetInDegrees = 34.5;
 
+        /**
+         * The module offset relative to the robot's base in degrees
+         */
+        public static final double kFrontLeftModuleOffsetInDegrees = 34.5;
+        /**
+         * The module offset relative to the robot's base in degrees
+         */
+        public static final double kFrontRightModuleOffsetInDegrees = 34.5;
+        /**
+         * The module offset relative to the robot's base in degrees
+         */
+        public static final double kBackLeftModuleOffsetInDegrees = 34.5;
+        /**
+         * The module offset relative to the robot's base in degrees
+         */
+        public static final double kBackRightModuleOffsetInDegrees = 34.5;
 
-      /**
-       * Max velocity - Meters Per Second
-       */
-      public static final double kMaxVelocityMPS = 1.14528;
     }
 
     public static class Motors {
@@ -156,7 +146,7 @@ public final class Constants {
     }
 
     public static class Encoders {
-      // Only the steer encoder exists (seperate from the encoder inside off the Falcon because of ratio problems inside the swerve)
+      // ? Only the steer encoder exists (seperate from the encoder inside of the Falcon 500 because of ratio problems between the wheels of the swerve modules)
       public static final int kFrontLeftSteerEncoderCANID = 1;
       public static final int kFrontRightSteerEncoderCANID = 2;
       public static final int kBackLeftSteerEncoderCANID = 3;
