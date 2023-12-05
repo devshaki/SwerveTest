@@ -20,13 +20,17 @@ public final class Constants {
       // ! --- DO NOT USE THESE PID k VARIABLES IN PRODUCTION! I DID NOT TEST THEM YET ------------------ 
       public static class Drive {
         /**
-         * Static Friction Offset
+         * Static Friction Offset (to overcome the friction of the system)
          */
         public static final double kS = 2.0;
         /**
-         * Velocity Feedforward
+         * Velocity Feedforward (to continue the current speed)
          */
         public static final double kV = 2.0;
+        /**
+         * the voltage needed to reach a certain excalaration (i have no idea what number to put)
+         */
+        public static final double kA = 0;
 
         /**
          * Proportional tuning - error
@@ -44,13 +48,18 @@ public final class Constants {
 
       public static class Steer {
         /**
-         * Static Friction Offset
+         * Static Friction Offset (to overcome the friction of the system)
          */
         public static final double kS = 2.0;
         /**
-         * Velocity Feedforward
+         * Velocity Feedforward (to continue the current speed)
          */
         public static final double kV = 2.0;
+        /**
+         * the voltage needed to reach a certain excalaration (i have no idea what number to put)
+         */
+        public static final double kA = 0;
+
 
         /**
          * Proportional tuning - error
