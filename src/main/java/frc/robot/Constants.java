@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -156,22 +158,28 @@ public final class Constants {
 
     public static class Encoders {
       // ? Only the steer encoder exists (seperate from the encoder inside of the Falcon 500 because of ratio problems between the wheels of the swerve modules)
-      public static final int kFrontLeftSteerEncoderCANID = 1;
-      public static final int kFrontRightSteerEncoderCANID = 2;
-      public static final int kBackLeftSteerEncoderCANID = 3;
-      public static final int kBackRightSteerEncoderCANID = 4;
+      public static final int kFrontLeftSteerEncoderCANID = 9;
+      public static final int kFrontRightSteerEncoderCANID = 10;
+      public static final int kBackLeftSteerEncoderCANID = 11;
+      public static final int kBackRightSteerEncoderCANID = 12;
     }
 
   }
   
-    public class OperatorConstants {
-      public static final int kDriverControllerPort = 0;
-    }
+  public static class OperatorConstants {
+    public static final int kDriverControllerPort = 0;
+  }
 
-    public static class OI
-    {
-      public static final int kXboxControllerPort = 0;
-      public static final double kXboxcontrollerDrift = 0.1;
-    }
+  public static class OI
+  {
+    public static final int kXboxControllerPort = 0;
+    public static final double kXboxcontrollerDrift = 0.1;
+  }
+  public static class FieldConstants {
+    // ! TODO CHANGE THIS TO ACTUAL FIELD LENGTH FOR 2024
+    public static final double fieldLength = 0.0;
+    public static final double fieldWidth = 0.0;
+    public static final double aprilTagWidth = Units.inchesToMeters(6.0);
+  }
   
 }

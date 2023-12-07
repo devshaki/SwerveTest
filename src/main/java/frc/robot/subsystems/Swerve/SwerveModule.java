@@ -78,6 +78,7 @@ public class SwerveModule extends SubsystemBase {
             .withRotorToSensorRatio(Swerve.Stats.kRotorToSensorRatio);
 
         Slot0Configs slot0DriveConfigs = new Slot0Configs()
+            .withKA(Swerve.PID.Drive.kA) // Acceleration 
             .withKS(Swerve.PID.Drive.kS) // Static Friction Offset
             .withKV(Swerve.PID.Drive.kV) // Velocity Feedforward
             // P I D
@@ -88,6 +89,7 @@ public class SwerveModule extends SubsystemBase {
 
 
         Slot0Configs slot0SteerConfigs = new Slot0Configs()
+            .withKA(Swerve.PID.Steer.kA) // Acceleration 
             .withKS(Swerve.PID.Steer.kS) // Static Friction Offset
             .withKV(Swerve.PID.Steer.kV) // Velocity Feedforward
             // P I D
