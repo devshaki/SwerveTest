@@ -141,27 +141,27 @@ public final class Constants {
     }
 
     public static class Motors {
-      public static final int kFrontLeftDriveFalconCANID = 1;
-      public static final int kFrontLeftSteerFalconCANID = 2;
+      public static final int kFrontLeftDriveFalconCANID = 8;
+      public static final int kFrontLeftSteerFalconCANID = 7;
 
-      public static final int kFrontRightDriveFalconCANID = 3;
-      public static final int kFrontRightSteerFalconCANID = 4;
+      public static final int kFrontRightDriveFalconCANID = 4;
+      public static final int kFrontRightSteerFalconCANID = 10;
 
       public static final int kBackLeftDriveFalconCANID = 5;
       public static final int kBackLeftSteerFalconCANID = 6;
 
-      public static final int kBackRightDriveFalconCANID = 7;
-      public static final int kBackRightSteerFalconCANID = 8;
+      public static final int kBackRightDriveFalconCANID = 3;
+      public static final int kBackRightSteerFalconCANID = 9;
 
 
     }
 
     public static class Encoders {
       // ? Only the steer encoder exists (seperate from the encoder inside of the Falcon 500 because of ratio problems between the wheels of the swerve modules)
-      public static final int kFrontLeftSteerEncoderCANID = 9;
-      public static final int kFrontRightSteerEncoderCANID = 10;
-      public static final int kBackLeftSteerEncoderCANID = 11;
-      public static final int kBackRightSteerEncoderCANID = 12;
+      public static final int kFrontLeftSteerEncoderCANID = 18;
+      public static final int kFrontRightSteerEncoderCANID = 21;
+      public static final int kBackLeftSteerEncoderCANID = 20;
+      public static final int kBackRightSteerEncoderCANID = 19;
     }
 
   }
