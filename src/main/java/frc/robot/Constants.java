@@ -122,19 +122,19 @@ public final class Constants {
         public static final double kWheelbaseMeters = 85.5;
 
         /**
-         * The module offset relative to the robot's base in degrees
+         * The current degree of the steer mechanism (At what degree does the drive wheel start)
          */
         public static final double kFrontLeftModuleOffsetInDegrees = 34.5;
         /**
-         * The module offset relative to the robot's base in degrees
+         * The current degree of the steer mechanism (At what degree does the drive wheel start)
          */
         public static final double kFrontRightModuleOffsetInDegrees = 34.5;
         /**
-         * The module offset relative to the robot's base in degrees
+         * The current degree of the steer mechanism (At what degree does the drive wheel start)
          */
         public static final double kBackLeftModuleOffsetInDegrees = 34.5;
         /**
-         * The module offset relative to the robot's base in degrees
+         * The current degree of the steer mechanism (At what degree does the drive wheel start)
          */
         public static final double kBackRightModuleOffsetInDegrees = 34.5;
 
