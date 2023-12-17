@@ -89,7 +89,7 @@ public final class Constants {
        */
       public static final double kTrackWidthMeters = 85.5;
 
-      /**
+      /**+
        * Distance between the center of the back wheels to the center of the front wheels (Meters)
        */
       public static final double kWheelbaseMeters = 85.5;
@@ -124,19 +124,19 @@ public final class Constants {
         /**
          * The current degree of the steer mechanism (At what degree does the drive wheel start)
          */
-        public static final double kFrontLeftModuleOffsetInDegrees = 34.5;
+        public static final double kFrontLeftModuleOffsetInDegrees = 194;
         /**
          * The current degree of the steer mechanism (At what degree does the drive wheel start)
          */
-        public static final double kFrontRightModuleOffsetInDegrees = 34.5;
+        public static final double kFrontRightModuleOffsetInDegrees = 296;
         /**
          * The current degree of the steer mechanism (At what degree does the drive wheel start)
          */
-        public static final double kBackLeftModuleOffsetInDegrees = 34.5;
+        public static final double kBackLeftModuleOffsetInDegrees = 65;
         /**
          * The current degree of the steer mechanism (At what degree does the drive wheel start)
          */
-        public static final double kBackRightModuleOffsetInDegrees = 34.5;
+        public static final double kBackRightModuleOffsetInDegrees = 19;
 
     }
 
