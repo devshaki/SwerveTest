@@ -24,11 +24,11 @@ public final class Constants {
         /**
          * Static Friction Offset (to overcome the friction of the system)
          */
-        public static final double kS = 2.0;
+        public static final double kS = 0.0;
         /**
          * Velocity Feedforward (to continue the current speed)
          */
-        public static final double kV = 2.0;
+        public static final double kV = 0.0;
         /**
          * the voltage needed to reach a certain excalaration (i have no idea what number to put)
          */
@@ -37,15 +37,15 @@ public final class Constants {
         /**
          * Proportional tuning - error
          */
-        public static final double kP = 2.0;
+        public static final double kP = 0.0;
         /**
          * Integral tuning - learning
          */
-        public static final double kI = 2.0;
+        public static final double kI = 0.0;
         /**
          * Derivative tuning - overshoot
          */
-        public static final double kD = 2.0;
+        public static final double kD = 0.0;
       } 
 
       public static class Steer {
